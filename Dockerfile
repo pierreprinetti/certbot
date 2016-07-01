@@ -2,7 +2,7 @@ FROM alpine:latest
 
 MAINTAINER me@qrawl.net
 
-RUN apk add --update certbot
+RUN apk add --update bash certbot
 
 COPY ./run.sh /run.sh
 
