@@ -2,10 +2,10 @@ FROM ubuntu:xenial
 
 MAINTAINER me@qrawl.net
 
-RUN apt-getupdate && apt-get install -y letsencrypt
+RUN apt-get update && apt-get install -y letsencrypt
 
 WORKDIR /script
 
 COPY . ./
 
-CMD ["run.sh"]
+CMD ["/script/run.sh"]
