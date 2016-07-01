@@ -4,12 +4,18 @@ Dockerized [certbot][certbot]
 ```
 docker volume create --name nginx-certs
 
+# docker stop nginx
+
 docker run \
   -v nginx-certs:/etc/letsencrypt \
   -e http_proxy=$http_proxy \
   -e domains="example.com,example.org" \
   -e email="me@example.com" \
+  -p 80:80 \
+  -p 443:443 \
   --rm pierreprinetti/certbot:latest
+
+# docker start nginx
 ```
 
 ## With dockerized nginx
