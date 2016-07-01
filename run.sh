@@ -6,5 +6,5 @@ if [ -z ${domains+x} ]; then echo "Fatal: domains must be specified with the env
 
 IFS=',' read -ra ADDR <<< "$domains"
 for domain in "${ADDR[@]}"; do
-    letsencrypt certonly --verbose --quiet --standalone --agree-tos --email="${email}" -d "${domain}"
+    certbot certonly --verbose --quiet --standalone --agree-tos --email="${email}" -d "${domain}"
 done

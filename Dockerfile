@@ -1,8 +1,8 @@
-FROM ubuntu:xenial
+FROM alpine:latest
 
 MAINTAINER me@qrawl.net
 
-RUN apt-get update && apt-get install -y letsencrypt
+RUN apk add --update certbot
 
 COPY ./run.sh /run.sh
 
