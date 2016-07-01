@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM ubuntu:xenial
 
 MAINTAINER me@qrawl.net
 
