@@ -4,8 +4,8 @@ MAINTAINER me@qrawl.net
 
 RUN apt-get update && apt-get install -y letsencrypt
 
-WORKDIR /script
+COPY ./run.sh /run.sh
 
-COPY . ./
+RUN chmod +x /run.sh
 
-CMD ["/script/run.sh"]
+CMD ["/run.sh"]
