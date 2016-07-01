@@ -1,6 +1,8 @@
 # certbot
 Dockerized [certbot][certbot].
 
+## Obtaining certificates
+
 The container will run certbot against all the domains provided with the environment variable `domains`.
 
 If `-e distinct=true` is passed, certbot will be run separately for every listed domain.
@@ -15,6 +17,22 @@ docker run \
   -e http_proxy=$http_proxy \
   -e domains="example.com,example.org" \
   -e email="me@example.com" \
+  -p 80:80 \
+  -p 443:443 \
+  --rm pierreprinetti/certbot:latest
+
+# docker start nginx
+```
+
+## Renewing certificates
+
+```
+# docker stop nginx
+
+docker run \
+  -v nginx-certs:/etc/letsencrypt \
+  -e http_proxy=$http_proxy \
+  -e renew=true \
   -p 80:80 \
   -p 443:443 \
   --rm pierreprinetti/certbot:latest
