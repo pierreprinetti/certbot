@@ -27,7 +27,13 @@ docker run \
 ## Renewing certificates
 
 ```
-# docker stop nginx
+webserver_container=nginx # change as appropriate
+
+docker pull pierreprinetti/certbot:latest
+
+webserver_is_running=$(docker inspect -f {{.State.Running}} $webserver_container)
+
+if $webserver_is_running; then docker stop $webserver_container; fi
 
 docker run \
   -v nginx-certs:/etc/letsencrypt \
@@ -37,7 +43,7 @@ docker run \
   -p 443:443 \
   --rm pierreprinetti/certbot:latest
 
-# docker start nginx
+if $webserver_is_running; then docker start $webserver_container; fi
 ```
 
 ## With dockerized nginx
