@@ -25,26 +25,8 @@ docker run \
 ```
 
 ## Renewing certificates
+You can put in crontab a call to a script shaped like [this one](https://gist.github.com/pierreprinetti/f581915d8560533d4210991abb7b3676).
 
-```
-webserver_container=nginx # change as appropriate
-
-docker pull pierreprinetti/certbot:latest
-
-webserver_is_running=$(docker inspect -f {{.State.Running}} $webserver_container)
-
-if $webserver_is_running; then docker stop $webserver_container; fi
-
-docker run \
-  -v nginx-certs:/etc/letsencrypt \
-  -e http_proxy=$http_proxy \
-  -e renew=true \
-  -p 80:80 \
-  -p 443:443 \
-  --rm pierreprinetti/certbot:latest
-
-if $webserver_is_running; then docker start $webserver_container; fi
-```
 
 ## With dockerized nginx
 
