@@ -42,7 +42,7 @@ docker run \
   -d nginx:mainline-alpine
 ```
 
-Example configuration for `example.com` in your dockerized nginX:
+Example configuration for `example.com` in your dockerized nginx:
 
 ```
 server {
