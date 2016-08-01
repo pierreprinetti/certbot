@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-MAINTAINER me@qrawl.net
+MAINTAINER Pierre Prinetti <me@qrawl.net>
 
 RUN apk add --update bash certbot
 
