@@ -2,7 +2,7 @@ FROM alpine:latest
 
 MAINTAINER Pierre Prinetti <me@qrawl.net>
 
-RUN apk add --update certbot
+RUN apk add --no-cache certbot
 
 COPY ./run.sh /run.sh
 
