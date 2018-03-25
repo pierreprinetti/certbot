@@ -12,7 +12,7 @@ if [ -z ${renew+x} ]; then
 
     IFS=',' read -ra ADDR <<< "$domains"
     for domain in "${ADDR[@]}"; do
-        certbot certonly --verbose --noninteractive --quiet --standalone --agree-tos --email="${email}" -d "${domain}"
+        certbot certonly --verbose --noninteractive --quiet --standalone --agree-tos --email="${email}" -d "${domain}" $@;
     done
 
   fi; else
