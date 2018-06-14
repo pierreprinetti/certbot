@@ -8,15 +8,15 @@ if [ -z ${renew+x} ]; then
 
   if [ -z ${distinct+x} ]; then
 
-    certbot certonly --verbose --noninteractive --quiet --standalone --agree-tos --email="${email}" -d "${domains}" $@; else
+    certbot certonly --verbose --noninteractive --quiet --standalone --agree-tos --email="${email}" -d "${domains}" "$@"; else
 
     IFS=',' read -ra ADDR <<< "$domains"
     for domain in "${ADDR[@]}"; do
-        certbot certonly --verbose --noninteractive --quiet --standalone --agree-tos --email="${email}" -d "${domain}" $@;
+        certbot certonly --verbose --noninteractive --quiet --standalone --agree-tos --email="${email}" -d "${domain}" "$@";
     done
 
   fi; else
 
-  certbot renew
+  certbot renew "$@"
 
 fi
