@@ -31,13 +31,15 @@ docker volume create --name https-certs
 Prepare to manually edit your DNS zone with the provided instructions:
 
 ```
-docker run --rm -it -v https-certs:/etc/letsencrypt pierreprinetti/certbot certonly \
-	--manual \
-	--preferred-challenges=dns \
-	-m me@example.com \
-	--agree-tos \
-	-d example.com \
-	-d www.example.com
+docker run --rm -it \
+	-v https-certs:/etc/letsencrypt \
+	docker.io/pierreprinetti/certbot certonly \
+		--manual \
+		--preferred-challenges=dns \
+		-m me@example.com \
+		--agree-tos \
+		-d example.com \
+		-d www.example.com
 ```
 
 ### Example: Obtaining certificates with the OVH DNS plugin
@@ -47,14 +49,17 @@ In this example, my OVH credentials are stored in the file `./ovh.ini` as descri
 This command will persist the Letsencrypt material, including the HTTPS certificate, in the newly created volume:
 
 ```
-docker run --rm -v $(pwd)/ovh.ini:/ovh.ini:ro -v https-certs:/etc/letsencrypt pierreprinetti/certbot certonly \
-	--non-interactive \
-	--agree-tos \
-	-m me@example.com \
-	--dns-ovh \
-	--dns-ovh-credentials /ovh.ini \
-	-d example.com \
-	-d www.example.com
+docker run --rm \
+	-v $(pwd)/ovh.ini:/ovh.ini:ro \
+	-v https-certs:/etc/letsencrypt \
+	docker.io/pierreprinetti/certbot certonly \
+		--non-interactive \
+		--agree-tos \
+		-m me@example.com \
+		--dns-ovh \
+		--dns-ovh-credentials /ovh.ini \
+		-d example.com \
+		-d www.example.com
 ```
 
 Remember to substitute `me@example.com` with your own email address in order to receive important notifications about your certificate.
