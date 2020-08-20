@@ -1,6 +1,6 @@
 # certbot
 
-Dockerized [certbot][certbot] with the plugins listed [in the docs][dns-plugins] made available:
+Containerized [certbot][certbot] with the plugins listed [in the docs][dns-plugins] made available:
 
 * certbot-dns-cloudflare
 * certbot-dns-cloudxns
@@ -22,18 +22,20 @@ arguments described in the documentation will work here.
 
 ## Example: Manual dns-01 challenge
 
-The expected outcome is to have the certificates saved in a Docker volume, so that it can be easily mounted into the webserver container:
+The examples use Podman. Substitute [`podman`][podman] with `docker` if you prefer that.
+
+The expected outcome is to have the certificates saved in a volume, so that it can be easily mounted into the webserver container:
 
 ```
-docker volume create --name https-certs
+podman volume create --name https-certs
 ```
 
 Prepare to manually edit your DNS zone with the provided instructions:
 
 ```
-docker run --rm -it \
+podman run --rm -it \
 	-v https-certs:/etc/letsencrypt \
-	docker.io/pierreprinetti/certbot certonly \
+	quay.io/pierreprinetti/certbot certonly \
 		--manual \
 		--preferred-challenges=dns \
 		-m me@example.com \
@@ -49,10 +51,10 @@ In this example, my OVH credentials are stored in the file `./ovh.ini` as descri
 This command will persist the Letsencrypt material, including the HTTPS certificate, in the newly created volume:
 
 ```
-docker run --rm \
+podman run --rm \
 	-v $(pwd)/ovh.ini:/ovh.ini:ro \
 	-v https-certs:/etc/letsencrypt \
-	docker.io/pierreprinetti/certbot certonly \
+	quay.io/pierreprinetti/certbot certonly \
 		--non-interactive \
 		--agree-tos \
 		-m me@example.com \
@@ -71,7 +73,7 @@ This same command will renew the certificates, if they are found in the attached
 Spin your favorite reverse proxy with something like:
 
 ```
-docker run \
+podman run \
 	--name some-nginx \
 	-v https-certs:/etc/nginx/certs:ro \
 	-p 80:80 \
@@ -80,7 +82,7 @@ docker run \
 	-d nginx:mainline-alpine
 ```
 
-Example configuration for `example.com` in your dockerized nginx:
+Example configuration for `example.com` in your containerized nginx:
 
 ```
 server {
@@ -97,4 +99,5 @@ server {
 
 [certbot]: https://certbot.eff.org/ "Certbot website"
 [dns-plugins]: https://certbot.eff.org/docs/using.html#dns-plugins "Certbot DNS plugins"
+[podman]: https://podman.io/ "podman.io"
 [dns-ovh-docs]: https://certbot-dns-ovh.readthedocs.io/en/stable "Certbot DNS OVH plugin documentation"

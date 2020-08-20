@@ -20,11 +20,11 @@ ARG VCS_REF
 LABEL \
     org.opencontainers.image.created=$BUILD_DATE \
     org.opencontainers.image.authors="https://pierreprinetti.com" \
-    org.opencontainers.image.url="https://hub.docker.com/r/pierreprinetti/certbot/" \
+    org.opencontainers.image.url="https://quay.io/repository/pierreprinetti/certbot" \
     org.opencontainers.image.source="https://github.com/pierreprinetti/certbot" \
     org.opencontainers.image.version=$VCS_REF \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.title="certbot" \
-    org.opencontainers.image.description="Dockerized Certbot: EFF's Let's encrypt ACME client"
+    org.opencontainers.image.description="Containerized Certbot: EFF's Let's encrypt ACME client"
 
 ENTRYPOINT ["certbot"]
